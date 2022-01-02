@@ -2,7 +2,7 @@
 CRUD API
 ###
 
-TypeScript, jest, sequalise, postgres, Docker
+TypeScript, jest, knex, objection postgres, Docker
 
 ###
 
