@@ -1,5 +1,5 @@
 import request from 'supertest'
-import { app } from '../app'
+import { app } from '../src/app'
 
 it('returns list of users from /users endpoint', async () => {
 
