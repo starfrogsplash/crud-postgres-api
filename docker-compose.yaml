@@ -9,10 +9,12 @@ services:
       POSTGRES_DB: docker-db
       POSTGRES_HOST: postgresHost
     volumes:
-      - ./pgdata
+      - pgdata:/pgdata
     ports:
       - "5432:5432"
     networks:
       - main
+volumes:
+  pgdata:
 networks:
   main:
