@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  db:
+    image: postgres
+    hostname: db
+    environment:
+      POSTGRES_PASSWORD: dbPass
+      POSTGRES_USER: dbUser
+      POSTGRES_DB: docker-db
+      POSTGRES_HOST: postgresHost
+    volumes:
+      - ./pgdata
+    ports:
+      - "5432:5432"
+    networks:
+      - main
+networks:
+  main:
