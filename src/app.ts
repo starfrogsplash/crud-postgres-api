@@ -1,11 +1,11 @@
 import express from 'express'
 import { json } from 'body-parser'
-import { userRouter } from './routes/users'
+import { bookRouter } from './routes/books'
 
 const app = express()
 
 app.use(json())
-app.use(userRouter)
+app.use(bookRouter)
 
 export { app }
 
