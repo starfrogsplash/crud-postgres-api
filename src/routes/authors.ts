@@ -17,8 +17,13 @@ authorRouter.get('/authors', async (req: Request, res: Response) => {
 authorRouter.get('/authors/:id', async (req: Request, res: Response) => {
     const { id } = req.params
     try {
-        const book: Author | undefined = await Author.query().findById(id)
-        res.status(200).send(book)
+        const author: Author | undefined = await Author.query().findById(id)
+        if(author){
+            res.status(200).send(author)
+        }else {
+            res.status(404).send(author)
+        }
+ 
     } catch (error) {
         console.log('failed to fetch:', error)
     }

@@ -1,12 +1,10 @@
 import Knex from 'knex'
 import { Model } from 'objection'
 
-const database = '"docker-dbTest"'
-
 let knex: any
 
 // Create the database
-const createTestDatabase = async() => {
+const createTestDatabase = async(database: any) => {
   const knex = Knex({
     client: 'pg',
     connection: {
@@ -19,9 +17,9 @@ const createTestDatabase = async() => {
   })
 
   try {
-    await knex.raw(`DROP DATABASE IF EXISTS ${database}`)
-    console.log(`DROP DATABASE IF EXISTS ${database}`)
-    await knex.raw(`CREATE DATABASE ${database}`)
+    await knex.raw(`DROP DATABASE IF EXISTS "${database}"`)
+    // console.log(`DROP DATABASE IF EXISTS ${database}`)
+    await knex.raw(`CREATE DATABASE "${database}"`)
   } catch (err: any) {
     console.log(err)
     throw new Error(err)
@@ -31,17 +29,18 @@ const createTestDatabase = async() => {
 }
 
 // Seed the database with schema and data
-async function migrateTestDatabase() {
+async function migrateTestDatabase(database: any) {
     const knex = Knex({
       client: 'pg',
       connection: {
         host: 'localhost',
-        database: 'docker-dbTest',
+        database: database,
         port: 5400,
         password: 'dbTestPass',
         user: 'dbTestUser'
       },
     })
+
   
     try {
       await knex.migrate.latest()
@@ -64,31 +63,28 @@ async function migrateTestDatabase() {
         .returning('*')
   }
 
-  const globalSetUp = async()=> {
+  const globalSetUp = async(database: string)=> {
     try {
-      await createTestDatabase()
-      await migrateTestDatabase()
+      await createTestDatabase(database)
+      await migrateTestDatabase(database)
       console.log('Test database created successfully')
 
       knex = Knex({
         client: 'pg',
         connection: {
           host: 'localhost',
-          database: 'docker-dbTest',
+          database: database,
           port: 5400,
           password: 'dbTestPass',
           user: 'dbTestUser'
         },
       })
       Model.knex(knex)
-
       await seedDataBase(knex)
-  
       return knex
-
     } catch (error) {
       console.log(error)
-      process.exit(1)
+      // process.exit(1)
     }
 
   }

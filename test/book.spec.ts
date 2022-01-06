@@ -1,7 +1,18 @@
 import request from 'supertest'
 import { app } from '../src/app'
+import { globalSetUp } from './global-setup'
 
 describe('books', () => {
+
+  let knex: any
+
+    beforeAll(async () => {
+      knex = await globalSetUp('dockerDBTest')
+    })
+
+    afterAll(() => {
+      knex.destroy()
+    })
 
   describe('GET /books', () => {
     it('should return list of books', async () => {
