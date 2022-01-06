@@ -20,11 +20,15 @@ bookRouter.get('/books/:id', async (req: Request, res: Response) => {
     const { id } = req.params
     try {
         const book: Book | undefined = await Book.query().findById(id)
-        res.status(200).send(book)
+        if(book){
+           return res.status(200).send(book)
+        } else{
+            return res.status(404).json('book not found')
+        }
+        
     } catch (error) {
         console.log('failed to fetch:', error)
     }
-
 })
 
 bookRouter.post('/books', async (req: Request, res: Response) => {

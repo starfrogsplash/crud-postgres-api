@@ -14,7 +14,22 @@ services:
       - "5432:5432"
     networks:
       - main
+  db_test:
+    image: postgres
+    hostname: dbTest
+    environment:
+      POSTGRES_PASSWORD: dbTestPass
+      POSTGRES_USER: dbTestUser
+      POSTGRES_DB: dbTestUser
+      POSTGRES_HOST: postgresTestHost
+    volumes:
+      - pgTestdata:/pgTestdata
+    ports:
+      - "5400:5432"
+    networks:
+      - main
 volumes:
   pgdata:
+  pgTestdata:
 networks:
   main:
