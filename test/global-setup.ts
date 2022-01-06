@@ -1,6 +1,9 @@
 import Knex from 'knex'
+import { Model } from 'objection'
 
 const database = '"docker-dbTest"'
+
+let knex: any
 
 // Create the database
 const createTestDatabase = async() => {
@@ -14,8 +17,6 @@ const createTestDatabase = async() => {
         user: 'dbTestUser'
     },
   })
-  console.log('database==', database)
-  console.log(`DROP DATABASE IF EXISTS ${database}`)
 
   try {
     await knex.raw(`DROP DATABASE IF EXISTS ${database}`)
@@ -44,7 +45,6 @@ async function migrateTestDatabase() {
   
     try {
       await knex.migrate.latest()
-      // await knex.seed.run()
     } catch (err: any) {
       throw new Error(err)
     } finally {
@@ -52,12 +52,40 @@ async function migrateTestDatabase() {
     }
   }
 
+  const seedDataBase = async (knex: any) => {
+     const seededBooks = await knex('books')
+        .insert([{ name: 'A Game of Thrones' }, { name: 'Winds of winter' }, { name: 'Witcher: volume 1' }])
+        .returning('*')
+      const seededAuthors = await knex('authors')
+        .insert([{ name: 'George RR Martin' }, { name: 'Andrzej Sapkowski' }])
+        .returning('*')
+      const seededBookAuthorRelationship = await knex('authors_books')
+        .insert([{ author_id: 1, book_id: 1 }, { author_id: 1, book_id: 2 }, { author_id: 2, book_id: 3 }])
+        .returning('*')
+  }
 
   const globalSetUp = async()=> {
     try {
       await createTestDatabase()
       await migrateTestDatabase()
       console.log('Test database created successfully')
+
+      knex = Knex({
+        client: 'pg',
+        connection: {
+          host: 'localhost',
+          database: 'docker-dbTest',
+          port: 5400,
+          password: 'dbTestPass',
+          user: 'dbTestUser'
+        },
+      })
+      Model.knex(knex)
+
+      await seedDataBase(knex)
+  
+      return knex
+
     } catch (error) {
       console.log(error)
       process.exit(1)

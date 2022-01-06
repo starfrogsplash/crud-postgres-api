@@ -1,12 +1,12 @@
 import Knex from 'knex'
 
-const database = 'test_book_database'
+const database = '"docker-dbTest"'
 
 const knex = Knex({
     client: 'pg',
     connection: {
         host: 'localhost',
-        // database: 'docker-dbTest',
+        database: 'docker-dbTest',
         port: 5432,
         password: 'dbTestPass',
         user: 'dbTestUser'
