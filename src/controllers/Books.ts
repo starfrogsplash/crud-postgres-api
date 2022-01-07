@@ -1,6 +1,5 @@
 import { Book } from '../models/Book'
 
-
 const getAllBooks = async():Promise<Book[] | undefined> => {
     try {
         const books: Book[] = await Book.query()
