@@ -1,6 +1,6 @@
 import request from 'supertest'
-import { app } from '../src/app'
-import { globalSetUp } from './global-setup'
+import { app } from '../../src/app'
+import { globalSetUp } from '../global-setup'
 
 describe('authors', () => {
 
