@@ -1,9 +1,10 @@
-import { getBooks, insertBook } from '../../src/controllers/getBooks'
+import { getAllBooks,getBookById, insertBook } from '../../src/controllers/Books'
 import { Book } from '../../src/models/Book'
 
-describe('unit test', () => {
+describe('unit test for books', () => {
   const mockedBook = jest.spyOn(Book, 'query')
   const insert = jest.fn();
+  const findById = jest.fn();
 
   afterEach(() => {
     jest.resetAllMocks()
@@ -16,7 +17,7 @@ describe('unit test', () => {
 
     mockedBook.mockResolvedValue(resultFromDB)
 
-    const fetchBooks = await getBooks()
+    const fetchBooks = await getAllBooks()
     expect(fetchBooks).toEqual(resultFromDB)
   })
 
@@ -25,11 +26,18 @@ describe('unit test', () => {
     insert.mockResolvedValue(resultFromDB)
     //@ts-ignore
     mockedBook.mockReturnValue({insert})
-    const fetchBooks = await insertBook('apple')
-    expect(fetchBooks).toEqual(resultFromDB)
+    const insertBookToDB = await insertBook('apple')
+    expect(insertBookToDB).toEqual(resultFromDB)
   })
 
-
+  it('find book by Id', async() => {
+    const resultFromDB = { name: 'Game of thrones', id: 2 }
+    findById.mockResolvedValue(resultFromDB)
+    //@ts-ignore
+    mockedBook.mockReturnValue({findById})
+    const fetchBookById = await getBookById('2')
+    expect(fetchBookById).toEqual(resultFromDB)
+  })
 })
 
 
