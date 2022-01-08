@@ -8,8 +8,6 @@ TypeScript, jest, knex, objection postgres, Docker
 
 
 
-
-
 ###
 instructions
 ###
