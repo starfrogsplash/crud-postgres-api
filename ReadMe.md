@@ -30,13 +30,12 @@ npm migrateUp
 ```
 
 ###
-to run
+to start the app
 ###
 ```
 npm start
 ```
- to start the app
-
+ 
 
 ###
 Swagger UI docs
