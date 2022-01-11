@@ -7,11 +7,13 @@ TypeScript, jest, knex, objection postgres, Docker
 
 
 ## Installation
-need to have `docker` and `node` installed
+
+- [docker](https://docs.docker.com/get-docker/) to install foobar.
+
+- [Node](https://nodejs.org/en/download/) to install foobar.
 
 
 ### Instructions
-
 
 
 To spin up docker databases
