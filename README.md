@@ -1,33 +1,33 @@
-###
-CRUD API
-###
+# CRUD API
 
+A crud api which has many to many relationship model built using:
 TypeScript, jest, knex, objection postgres, Docker
 
 ![Screenshot 2022-01-08 at 01 50 48](https://user-images.githubusercontent.com/22579826/148626963-f8cc4d23-a5fd-4275-b811-ad5649a4c80c.png)
 
 
-###
-instructions
-###
-
+## Installation
 need to have `docker` and `node` installed
 
 
+### Instructions
 
-to spin up docker databases
+
+
+To spin up docker databases
 ```
 docker-compose up
 ```
 
 then 
 ```
+# install dependencies for the app
 npm install
 ```
 
-
-initialize schema
 ```
+# initialize the schema
+
 npm migrateUp
 ```
 
@@ -37,7 +37,6 @@ to start the app
 ```
 npm start
 ```
- 
 
 ###
 Swagger UI docs
