@@ -8,9 +8,11 @@ TypeScript, jest, knex, objection postgres, Docker
 
 ## Installation
 
-- [docker](https://docs.docker.com/get-docker/) to install foobar.
+You will need
 
-- [Node](https://nodejs.org/en/download/) to install foobar.
+- [docker](https://docs.docker.com/get-docker/)
+
+- [Node](https://nodejs.org/en/download/)
 
 
 ### Instructions
