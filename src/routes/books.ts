@@ -26,6 +26,7 @@ bookRouter.get('/books/:id', async (req: Request, res: Response) => {
         }
     } catch (error) {
         console.log('failed to fetch:', error)
+        res.status(500).send('internal error')
     }
 })
 
